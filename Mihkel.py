@@ -2,22 +2,23 @@ from pybricks.hubs import PrimeHub
 from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor, ForceSensor
 from pybricks.parameters import Button, Color, Direction, Port, Side, Stop, Axis
 from pybricks.robotics import DriveBase
-from pybricks.tools import wait, StopWatch, run_task
+from pybricks.tools import wait, StopWatch
 
-hub = PrimeHub()
+hub = PrimeHub(
+    top_side=Axis.Z,
+    front_side=Axis.X)
 
-axle_lenght = 106#119
-wheel_diameter = 49.5#47.7
+axle_lenght = 140
+wheel_diameter = 49.5
 
-parem_mootor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
+parem_mootor = Motor(Port.D, Direction.COUNTERCLOCKWISE)
 vasak_mootor = Motor(Port.F, Direction.CLOCKWISE)
-tooriist_parem = Motor(Port.E)
-tooriist_vasak = Motor(Port.B)
+tooriist_parem = Motor(Port.B, Direction.COUNTERCLOCKWISE)
+tooriist_vasak = Motor(Port.A)
 
 #sensor = ColorSensor(Port.C)
-
-db = DriveBase(vasak_mootor, parem_mootor, wheel_diameter, axle_lenght)
-#db.use_gyro(True)
+db = DriveBase(parem_mootor, vasak_mootor, wheel_diameter, axle_lenght)
+db.use_gyro(True)
 db.settings(
     straight_speed=500,
     straight_acceleration=1500,
@@ -45,7 +46,7 @@ def resetRiist(speed=400,angle=0):
 
 def banatree():
     db.straight(173)
-    db.turn(-50)
+    db.turn(50)
     db.straight(217)
     tooriist_parem.run_angle(150,50)
     #db.settings(300, 300)
@@ -61,30 +62,38 @@ def drone():
     turn_rate=600,
     turn_acceleration=1000)
     db.straight(690)
-    db.turn(90)
+    db.turn(-90)
     db.straight(-100)
-    db.turn(-70)
+    db.turn(70)
     db.settings(700,1500, 400, 400)
     db.straight(-750)
     return
 
 def bigtree():#Starting pos on all vasakult 4 ruut(parem külg)
-    resetParem(angle=100)
-    resetVasak(angle=50)
+    db.straight(150)
+    db.turn(45)
+    db.straight(200)
+    db.turn(-47)
+    db.straight(390)
     wait(200)
-    resetriist()
-    wait(100)
+    tooriist_parem.run_angle(999, 250,wait=False)
+    tooriist_vasak.run_angle(999,250)
+    wait(200)
+    resetRiist()
     return
 
 def antleaf():
     return
 
 def test():
-    tooriist_parem.run_target(600, 100)
-    tooriist_vasak.run_target(600, 50)
+    tooriist_parem.dc(-100)
+    tooriist_vasak.dc(-100)
     wait(300)
     resetRiist()
     return
 
 wait(100)
+resetRiist()
+wait(300)
 test()
+    
