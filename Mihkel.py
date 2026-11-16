@@ -61,12 +61,11 @@ def drone():
     straight_acceleration=1000,
     turn_rate=600,
     turn_acceleration=1000)
-    db.straight(690)
-    db.turn(-90)
-    db.straight(-100)
-    db.turn(70)
+    db.straight(713)
+    db.turn(-50)
+    db.turn(50)
     db.settings(700,1500, 400, 400)
-    db.straight(-750)
+    db.straight(-700)
     return
 
 def bigtree():#Starting pos on all vasakult 4 ruut(parem külg)
@@ -92,8 +91,5 @@ def test():
     resetRiist()
     return
 
-wait(100)
-resetRiist()
 wait(300)
-test()
-    
+drone()
