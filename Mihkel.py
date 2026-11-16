@@ -83,13 +83,41 @@ def bigtree():#Starting pos on all vasakult 4 ruut(parem külg)
 
 def antleaf():
     return
+#Tööriista alumine osa pikkem/alla poole
+def gardenNJungleRoots():#Sinine 8'nda joone peale
+    #Go to compost
+    db.straight(51)
+    db.turn(-52.5)
+    db.straight(570-8)
+    db.settings(turn_rate=250)
+    db.turn(52.5)
+    db.straight(193-10.5+10)
+    db.turn(-88)
+    #run into compost
+    db.settings(straight_acceleration=200,straight_speed=400,turn_rate=400)
+    db.straight(50+6)
+    db.settings(straight_acceleration=1500,straight_speed=850,turn_rate=400)
+    #get back bump and seed
+    db.straight(-150)
+    db.straight(80)
+    db.turn(-137)
+    #return to base
+    db.straight(620)
+    return
 
 def test():
-    tooriist_parem.dc(-100)
-    tooriist_vasak.dc(-100)
-    wait(300)
+    tooriist_vasak.dc(100)
+    wait(400)
     resetRiist()
     return
 
-wait(300)
-drone()
+def ttest():
+    db.straight(210)
+    wait(200)
+    db.straight(-210)
+    return
+
+wait(100)
+gardenNJungleRoots()
+#ttest()
+    
