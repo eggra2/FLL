@@ -1,8 +1,8 @@
 from pybricks.hubs import PrimeHub
-from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor, ForceSensor
+from pybricks.pupdevices import Motor
 from pybricks.parameters import Button, Color, Direction, Port, Side, Stop, Axis
 from pybricks.robotics import DriveBase
-from pybricks.tools import wait, StopWatch
+from pybricks.tools import wait, StopWatch #voib olla hub_menu
 
 hub = PrimeHub(
     top_side=Axis.Z,
@@ -55,59 +55,12 @@ def zeroparemtooriist(speed=200):
     return
 
 def waitforButtonPress():
-    """Waits for Center button press to proceeed."""
+    """Waits for any button press to proceeed(except centre)."""
     while not any(hub.buttons.pressed()):
         wait(10)
         pass
     return
 
-def banatree():
-    tooriist_parem.run_angle(400,-250,wait=False)
-    tooriist_vasak.run_angle(400,-120)
-    db.arc(400,distance=400)
-    tooriist_vasak.run_angle(200,70,wait=False)
-    db.settings(straight_speed=120)
-    db.straight(-150)
-    db.settings(straight_speed=400)
-    db.straight(-400)
-    return
-
-def drone():
-    """deprecated, use run1"""
-    db.settings(
-    straight_speed=300,
-    straight_acceleration=1000,
-    turn_rate=600,
-    turn_acceleration=1000)
-    db.straight(713)
-    db.turn(-50)
-    db.turn(50)
-    db.settings(700,1500, 400, 400)
-    db.straight(-700)
-    return
-
-def run2():#Starting pos on all vasakult 4 ruut(parem külg)
-    """Root ja BigTree. Punane X=7 Y=0"""
-    db.settings(
-        straight_speed=400,#max 432, saab panna 450
-        straight_acceleration=900,#max 5000
-        turn_rate=300,#max 370, saab panna 400
-        turn_acceleration=400)#max 5000
-    tooriist_vasak.run_angle(200,-130)
-    db.straight(100)
-    db.turn(45)
-    db.straight(80)
-    db.turn(-45)
-    db.straight(555+10)
-    test()
-    db.straight(-20)
-    wait(300)
-    tooriist_vasak.run_angle(50,130)
-    #resetRiist()
-    return
-
-def antleaf():
-    return
 #Tööriista alumine osa pikkem/alla poole
 def gardenNJungleRoots():
     """Teeb Garden ja JungleRoots. Masin Sinine x telg 8'nda joone peale X=8 Y=0"""
@@ -128,6 +81,26 @@ def gardenNJungleRoots():
     db.turn(-137)
     #return to base
     db.straight(620)
+    return
+
+def run2():#Starting pos on all vasakult 4 ruut(parem külg)
+    """Root, BigTree ja Antleaf. Punane X=7 Y=0"""
+    db.settings(
+        straight_speed=400,#max 432, saab panna 450
+        straight_acceleration=900,#max 5000
+        turn_rate=300,#max 370, saab panna 400
+        turn_acceleration=400)#max 5000
+    tooriist_vasak.run_angle(200,-130)
+    db.straight(100)
+    db.turn(45)
+    db.straight(80)
+    db.turn(-45)
+    db.straight(555+10)
+    test()
+    db.straight(-20)
+    wait(300)
+    tooriist_vasak.run_angle(50,130)
+    #resetRiist()
     return
 
 def run1():
@@ -173,17 +146,14 @@ def ttest():
     """for testing things v2"""
     tooriist_vasak.run_until_stalled(-400,duty_limit=20)
     wait(200)
-    tooriist_vasak.run_angle(300,80)
+    tooriist_vasak.run_angle(300,70)
     return
 
 wait(100)
 """Call functions here"""
 run1()
-#run2()
-#banatree()
-#ttest()
 
 """
 Todo:
-Program bigtree and root
+Program bigtree and root(run 2)
 """
