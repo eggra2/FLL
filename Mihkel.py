@@ -62,15 +62,14 @@ def waitforButtonPress():
     return
 
 def banatree():
-    """deprecated, use run1"""
-    db.straight(173)
-    db.turn(50)
-    db.straight(217)
-    tooriist_parem.run_angle(150,50)
-    #db.settings(300, 300)
-    db.straight(-500)
-    #db.settings(500, 1500)
-    tooriist_parem.run_angle(1000,-50)
+    tooriist_parem.run_angle(400,-250,wait=False)
+    tooriist_vasak.run_angle(400,-120)
+    db.arc(400,distance=400)
+    tooriist_vasak.run_angle(200,70,wait=False)
+    db.settings(straight_speed=120)
+    db.straight(-150)
+    db.settings(straight_speed=400)
+    db.straight(-400)
     return
 
 def drone():
@@ -94,12 +93,16 @@ def run2():#Starting pos on all vasakult 4 ruut(parem külg)
         straight_acceleration=900,#max 5000
         turn_rate=300,#max 370, saab panna 400
         turn_acceleration=400)#max 5000
-    #tooriist_vasak.run_angle(200,-130)
+    tooriist_vasak.run_angle(200,-130)
     db.straight(100)
     db.turn(45)
-    db.straight(60)
+    db.straight(80)
     db.turn(-45)
-    db.straight(555+30)
+    db.straight(555+10)
+    test()
+    db.straight(-20)
+    wait(300)
+    tooriist_vasak.run_angle(50,130)
     #resetRiist()
     return
 
@@ -128,16 +131,35 @@ def gardenNJungleRoots():
     return
 
 def run1():
-    """Droon ja banana tree. Start Punane X=0 Y=1"""
-    resetRiist()
-    waitforButtonPress()
-    resetVasak(angle=200)
-    db.straight(805)
+    """Droon ja banana tree. Start Punane X=4 Y=0
+        Pullback tomba punansestjoonest hiina seinani x2"""
+    db.settings(straight_speed=300)
+    #resetParem()
+    #waitforButtonPress()
+    #resetVasak(angle=180)
+    db.straight(800-100)#-10
     wait(200)
-    tooriist_parem.run_angle(450, 170)
-    tooriist_parem.run_angle(450, -170)
-    db.straight(-800)
-    resetRiist()
+    tooriist_parem.run_until_stalled(450,duty_limit=50)
+    tooriist_parem.run_angle(450, -150)
+    db.straight(-700,wait=False)
+    wait(600)
+    tooriist_parem.run_angle(450,120,wait=False)
+    db.straight(-500)
+    db.stop()
+    
+    # X=16 now bananatree
+    waitforButtonPress()
+    tooriist_parem.run_angle(600,-240,wait=False)
+    wait(500)
+    tooriist_vasak.run_until_stalled(-400,duty_limit=20)
+    wait(200)
+    tooriist_vasak.run_angle(300,70,wait=False)
+    db.arc(400,distance=410)
+    tooriist_vasak.run_angle(200,80,wait=False)
+    db.settings(straight_speed=120)
+    db.straight(-150)
+    db.settings(straight_speed=400)
+    db.straight(-400)
     return
 
 def test():
@@ -149,15 +171,17 @@ def test():
 
 def ttest():
     """for testing things v2"""
-    tooriist_parem.dc(100)
-    wait(500)
-    resetParem()
+    tooriist_vasak.run_until_stalled(-400,duty_limit=20)
+    wait(200)
+    tooriist_vasak.run_angle(300,80)
     return
 
 wait(100)
-#tooriist_vasak.run_angle(200,-130)
-#run2()
+"""Call functions here"""
 run1()
+#run2()
+#banatree()
+#ttest()
 
 """
 Todo:
