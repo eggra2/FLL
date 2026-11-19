@@ -8,43 +8,61 @@ hub = PrimeHub(
     top_side=Axis.Z,
     front_side=Axis.X)
 
-axle_lenght = 140
-wheel_diameter = 49.5
 
-parem_mootor = Motor(Port.D, Direction.COUNTERCLOCKWISE)
-vasak_mootor = Motor(Port.F, Direction.CLOCKWISE)
-tooriist_parem = Motor(Port.B, Direction.COUNTERCLOCKWISE)
-tooriist_vasak = Motor(Port.A)
+axle_lenght = 123.8#140#133.7
+wheel_diameter = 49.2
+
+parem_mootor = Motor(Port.B, Direction.CLOCKWISE,profile=7)#profile on mitu kraadi see saab off olla. default 11
+vasak_mootor = Motor(Port.F, Direction.COUNTERCLOCKWISE,profile=7)
+tooriist_parem = Motor(Port.A,profile=8)
+tooriist_vasak = Motor(Port.E,profile=8)
 
 #sensor = ColorSensor(Port.C)
-db = DriveBase(parem_mootor, vasak_mootor, wheel_diameter, axle_lenght)
+db = DriveBase(vasak_mootor, parem_mootor, wheel_diameter, axle_lenght)
 db.use_gyro(True)
 db.settings(
-    straight_speed=500,
-    straight_acceleration=1500,
-    turn_rate=400,
-    turn_acceleration=400)
+    straight_speed=400,#max 432, saab panna 450
+    straight_acceleration=1500,#max 5000
+    turn_rate=400,#max 370, saab panna 400
+    turn_acceleration=600)#max 5000
 
-
-def getColor():
-    return sensor.color()
-
-def resetParem(speed=600, angle=45):
+def resetParem(speed=600, angle=0):
+    """Resets parem tooriist to zero angle"""
     tooriist_parem.run_target(speed, angle)
     return
 
-def resetVasak(speed=600, angle=45):
+def resetVasak(speed=600, angle=0):
+    """Resets vasak tooriist to zero angle"""
     tooriist_vasak.run_target(speed, angle)
     return
 
 def resetRiist(speed=400,angle=0):
+    """Resets both tooriist motors to zero angle"""
     tooriist_parem.run_target(speed,angle,wait=False)
     tooriist_vasak.run_target(speed,angle,wait=False)
     while not (tooriist_parem.done() and tooriist_vasak.done()):
         pass
     return
 
+def zerovasaktooriist(speed=200):
+    """Sets the motor's zero angle to mechanical endpoint"""
+    vasak_mootor.reset_angle(vasak_mootor.run_until_stalled(speed,duty_limit=30))
+    return
+
+def zeroparemtooriist(speed=200):
+    """Sets the motor's zero angle to mechanical endpoint"""
+    parem_mootor.reset_angle(parem_mootor.run_until_stalled(speed,duty_limit=30))
+    return
+
+def waitforButtonPress():
+    """Waits for Center button press to proceeed."""
+    while not any(hub.buttons.pressed()):
+        wait(10)
+        pass
+    return
+
 def banatree():
+    """deprecated, use run1"""
     db.straight(173)
     db.turn(50)
     db.straight(217)
@@ -56,6 +74,7 @@ def banatree():
     return
 
 def drone():
+    """deprecated, use run1"""
     db.settings(
     straight_speed=300,
     straight_acceleration=1000,
@@ -68,28 +87,31 @@ def drone():
     db.straight(-700)
     return
 
-def bigtree():#Starting pos on all vasakult 4 ruut(parem külg)
-    db.straight(150)
+def run2():#Starting pos on all vasakult 4 ruut(parem külg)
+    """Root ja BigTree. Punane X=7 Y=0"""
+    db.settings(
+        straight_speed=400,#max 432, saab panna 450
+        straight_acceleration=900,#max 5000
+        turn_rate=300,#max 370, saab panna 400
+        turn_acceleration=400)#max 5000
+    #tooriist_vasak.run_angle(200,-130)
+    db.straight(100)
     db.turn(45)
-    db.straight(200)
-    db.turn(-47)
-    db.straight(390)
-    wait(200)
-    tooriist_parem.run_angle(999, 250,wait=False)
-    tooriist_vasak.run_angle(999,250)
-    wait(200)
-    resetRiist()
+    db.straight(60)
+    db.turn(-45)
+    db.straight(555+30)
+    #resetRiist()
     return
 
 def antleaf():
     return
 #Tööriista alumine osa pikkem/alla poole
-def gardenNJungleRoots():#Sinine 8'nda joone peale
+def gardenNJungleRoots():
+    """Teeb Garden ja JungleRoots. Masin Sinine x telg 8'nda joone peale X=8 Y=0"""
     #Go to compost
     db.straight(51)
     db.turn(-52.5)
     db.straight(570-8)
-    db.settings(turn_rate=250)
     db.turn(52.5)
     db.straight(193-10.5+10)
     db.turn(-88)
@@ -105,19 +127,39 @@ def gardenNJungleRoots():#Sinine 8'nda joone peale
     db.straight(620)
     return
 
+def run1():
+    """Droon ja banana tree. Start Punane X=0 Y=1"""
+    resetRiist()
+    waitforButtonPress()
+    resetVasak(angle=200)
+    db.straight(805)
+    wait(200)
+    tooriist_parem.run_angle(450, 170)
+    tooriist_parem.run_angle(450, -170)
+    db.straight(-800)
+    resetRiist()
+    return
+
 def test():
-    tooriist_vasak.dc(100)
-    wait(400)
+    """for testing things"""
+    tooriist_parem.dc(100)
+    wait(200)
     resetRiist()
     return
 
 def ttest():
-    db.straight(210)
-    wait(200)
-    db.straight(-210)
+    """for testing things v2"""
+    tooriist_parem.dc(100)
+    wait(500)
+    resetParem()
     return
 
 wait(100)
-gardenNJungleRoots()
-#ttest()
-    
+#tooriist_vasak.run_angle(200,-130)
+#run2()
+run1()
+
+"""
+Todo:
+Program bigtree and root
+"""
