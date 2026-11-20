@@ -93,14 +93,39 @@ def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     tooriist_vasak.run_angle(200,-130)
     db.straight(100)
     db.turn(45)
-    db.straight(80)
+    db.straight(70)
     db.turn(-45)
-    db.straight(555+10)
-    test()
-    db.straight(-20)
-    wait(300)
-    tooriist_vasak.run_angle(50,130)
-    #resetRiist()
+    db.straight(560+10)
+    #L66 root yles
+    tooriist_parem.dc(100)
+    wait(200)
+    tooriist_parem.brake()
+    db.straight(-23)
+    tooriist_vasak.run_angle(50,150)
+    wait(1000)
+    tooriist_vasak.run_angle(50,-150)
+    #move back
+    db.straight(-90)
+    db.turn(90)
+    db.straight(280)
+    db.turn(-90)
+    ttest()
+    return
+    #pane tooriist 6igele k6rgusele
+    tooriist_parem.run_until_stalled(-600,duty_limit=18)
+    tooriist_parem.run_angle(300,45)
+    db.settings(straight_speed=150)
+    db.straight(135)
+    db.turn(7)
+    tooriist_parem.run_angle(300,80)
+    db.turn(-7)
+    db.settings(straight_speed=300)
+    db.straight(-130)
+    db.straight(220)
+    tooriist_parem.run_angle(300,100)
+    db.straight(70)
+    wait(400)
+    db.straight(-200)
     return
 
 def run1():
@@ -119,7 +144,7 @@ def run1():
     tooriist_parem.run_angle(450,120,wait=False)
     db.straight(-500)
     db.stop()
-    
+
     # X=16 now bananatree
     waitforButtonPress()
     tooriist_parem.run_angle(600,-240,wait=False)
@@ -144,14 +169,28 @@ def test():
 
 def ttest():
     """for testing things v2"""
-    tooriist_vasak.run_until_stalled(-400,duty_limit=20)
-    wait(200)
-    tooriist_vasak.run_angle(300,70)
+    tooriist_parem.run_until_stalled(-600,duty_limit=16)
+    tooriist_parem.run_angle(300,50)
+    db.settings(straight_speed=150)
+    db.straight(145)
+    db.turn(7)
+    tooriist_parem.run_angle(300,50)
+    db.turn(-7)
+    db.settings(straight_speed=300)
+    db.straight(-70)
+    db.straight(220)
+    tooriist_parem.run_angle(300,100)
+    db.straight(70)
+    wait(400)
+    db.straight(-200)
     return
 
-wait(100)
+
 """Call functions here"""
-run1()
+
+#ttest()
+run2()
+
 
 """
 Todo:
