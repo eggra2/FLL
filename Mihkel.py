@@ -83,6 +83,59 @@ def gardenNJungleRoots():
     db.straight(620)
     return
 
+def run3():
+    """Leaves, pushes compost and vert leaves, and puu tugi, x=16 y=0"""
+    tooriist_parem.reset_angle(0)
+    tooriist_vasak.run_angle(100,50,wait=False)
+    tooriist_parem.run_angle(300,-100,wait=False)
+    db.straight(770-7)
+    db.turn(-40)
+    db.straight(80)
+    tooriist_vasak.run_angle(400,170)
+    db.arc(700,-50)
+    db.settings(straight_speed=175)
+    db.straight(-150)
+    db.settings(straight_speed=400)
+    db.straight(100)
+    db.settings(straight_speed=300,turn_acceleration=1000,turn_rate=500)
+    tooriist_parem.run_angle(100,100,wait=False)
+    db.turn(110)
+    db.straight(280)
+    db.turn(70)
+    db.straight(400)
+    db.turn(45)
+    db.straight(150)
+    db.turn(-90)
+    db.settings(straight_speed=100)
+    db.straight(100)
+    db.turn(7)
+    db.settings(straight_speed=400)
+    #Loo white cum up
+    tooriist_parem.dc(-100)
+    wait(200)
+    tooriist_parem.stop()
+    #mine puu togue juurde
+    db.straight(-100)
+    db.turn(90,absolute=True)
+    tooriist_parem.run_target(600,0,wait=False)
+    db.straight(280)
+    db.turn(-4)
+    #tooriist_parem.run_until_stalled(300,duty_limit=40)
+    db.straight(130)
+    #loo puu tuge yles
+    tooriist_parem.dc(-100)
+    wait(150)
+    tooriist_parem.stop()
+    tooriist_parem.run_target(600,0)
+    db.straight(-60)
+    db.turn(29)
+    db.straight(20)
+    tooriist_parem.run_angle(100,-60)
+    tooriist_parem.run_target(700,0)
+    db.turn(160,absolute=True)
+    db.straight(500)
+    return
+
 def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     """Root, BigTree ja Antleaf. Punane X=7 Y=0"""
     db.settings(
@@ -105,22 +158,20 @@ def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     wait(1000)
     tooriist_vasak.run_angle(50,-150)
     #move back
+    return
     db.straight(-90)
     db.turn(90)
-    db.straight(280)
-    db.turn(-90)
-    ttest()
-    return
-    #pane tooriist 6igele k6rgusele
-    tooriist_parem.run_until_stalled(-600,duty_limit=18)
-    tooriist_parem.run_angle(300,45)
+    db.straight(280-7)
+    db.turn(0,absolute=True)
+    tooriist_parem.run_until_stalled(-600,duty_limit=16)
+    tooriist_parem.run_angle(300,50)
     db.settings(straight_speed=150)
-    db.straight(135)
+    db.straight(145)
     db.turn(7)
-    tooriist_parem.run_angle(300,80)
+    tooriist_parem.run_angle(300,50)
     db.turn(-7)
     db.settings(straight_speed=300)
-    db.straight(-130)
+    db.straight(-70)
     db.straight(220)
     tooriist_parem.run_angle(300,100)
     db.straight(70)
@@ -162,35 +213,21 @@ def run1():
 
 def test():
     """for testing things"""
-    tooriist_parem.dc(100)
-    wait(200)
-    resetRiist()
+    tooriist_parem.dc(-70)
+    wait(10000)
     return
 
 def ttest():
     """for testing things v2"""
-    tooriist_parem.run_until_stalled(-600,duty_limit=16)
-    tooriist_parem.run_angle(300,50)
-    db.settings(straight_speed=150)
-    db.straight(145)
-    db.turn(7)
-    tooriist_parem.run_angle(300,50)
-    db.turn(-7)
-    db.settings(straight_speed=300)
-    db.straight(-70)
-    db.straight(220)
-    tooriist_parem.run_angle(300,100)
-    db.straight(70)
-    wait(400)
-    db.straight(-200)
+    
     return
-
 
 """Call functions here"""
 
+#test()
 #ttest()
-run2()
-
+#run2()
+run3()
 
 """
 Todo:
