@@ -86,21 +86,24 @@ def gardenNJungleRoots():
 def run3():
     """Leaves, pushes compost and vert leaves, and puu tugi, x=16 y=0"""
     tooriist_parem.reset_angle(0)
-    tooriist_vasak.run_angle(60,55,wait=False)
-    tooriist_parem.run_angle(400,-120,wait=False)
-    db.straight(770-7)
-    db.turn(-40)
+    tooriist_vasak.run_angle(60,58,wait=False)
+    tooriist_parem.run_angle(400,-150,wait=False)
+    db.straight(770)
+    db.turn(-39)
+    #pickup leaves
     db.straight(80)
     tooriist_vasak.run_angle(300,170)
     tooriist_vasak.run_angle(200,-210,wait=False)
+    #move to compost while dropping leaves
     db.arc(700,-50)
+    #drive slowly into compost
     db.settings(straight_speed=175)
     db.straight(-150)
-    tooriist_vasak.run_angle(300,210)
+    tooriist_vasak.run_angle(700,210)
     db.settings(straight_speed=400)
     db.straight(100)
     db.settings(straight_speed=300,turn_acceleration=1000,turn_rate=500)
-    tooriist_parem.run_angle(100,100,wait=False)
+    tooriist_parem.run_angle(100,140,wait=False)
     db.turn(110)
     db.straight(280)
     db.turn(70)
@@ -129,14 +132,16 @@ def run3():
     wait(150)
     tooriist_parem.stop()
     tooriist_parem.run_target(600,0)
-    db.straight(-60)
-    db.turn(29)
+    db.straight(-45)
+    db.turn(30)
     wait(500)
-    db.straight(30)
-    tooriist_parem.run_angle(100,-60)
-    tooriist_parem.run_target(700,0)
+    tooriist_parem.run_angle(50,-60)
+    tooriist_parem.dc(60)
+    wait(200)
+    tooriist_parem.stop()
+    wait(500)
     db.turn(170,absolute=True)
-    db.straight(500)
+    db.straight(700)
     return
 
 def run2():#Starting pos on all vasakult 4 ruut(parem külg)
@@ -222,7 +227,25 @@ def test():
 
 def ttest():
     """for testing things v2"""
-    
+    db.straight(-100)
+    db.turn(90,absolute=True)
+    tooriist_parem.run_target(600,0,wait=False)
+    db.straight(280)
+    db.turn(-4)
+    db.straight(130)
+    #loo puu tuge yles
+    tooriist_parem.dc(-100)
+    wait(150)
+    tooriist_parem.stop()
+    tooriist_parem.run_target(600,0)
+    db.straight(-60)
+    db.turn(29)
+    wait(500)
+    tooriist_parem.dc(-100)
+    wait(200)
+    tooriist_parem.run_target(600,0)
+    db.turn(170,absolute=True)
+    db.straight(700)
     return
 
 """Call functions here"""
