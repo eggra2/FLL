@@ -62,14 +62,14 @@ def waitforButtonPress():
     return
 
 #Tööriista alumine osa pikkem/alla poole
-def gardenNJungleRoots():
+def run5vana():
     """Teeb Garden ja JungleRoots. Masin Sinine x telg 8'nda joone peale X=8 Y=0"""
     #Go to compost
     db.straight(51)
     db.turn(-52.5)
-    db.straight(570-8)
+    db.straight(565)
     db.turn(52.5)
-    db.straight(193-10.5+10)
+    db.straight(193.5)
     db.turn(-88)
     #run into compost
     db.settings(straight_acceleration=200,straight_speed=400,turn_rate=400)
@@ -81,6 +81,51 @@ def gardenNJungleRoots():
     db.turn(-137)
     #return to base
     db.straight(620)
+    return
+
+def run5():
+    """Teeb Garden ja JungleRoots. Masin Sinine x telg 8'nda joone peale X=8 Y=0"""
+    #Go to compost
+    db.straight(51)
+    db.turn(-52.5)
+    db.straight(630)
+    db.turn(51)
+    db.straight(88)
+    db.turn(-88)
+    #run into compost
+    db.settings(straight_acceleration=200,straight_speed=400,turn_rate=400)
+    db.straight(65)
+    db.settings(straight_acceleration=3000,straight_speed=400,turn_rate=400)
+    #get back bump and seed
+    db.straight(-170)
+    db.settings(straight_acceleration=1800,straight_speed=400,turn_rate=400)
+    db.straight(80)
+    db.turn(-137)
+    #return to base
+    db.straight(720)
+    return
+
+def run4(): #x=3, y=0, sinine
+    #sõida lapse juurde
+    db.straight(20)
+    db.turn(-15)
+    db.straight(685)
+    db.turn(54)
+    db.straight(140)
+    db.stop()
+    tooriist_parem.run_angle(100,135)
+    tooriist_parem.run_angle(300,-135,wait=False)
+    db.straight(-120)
+    #tagasi ja ring
+    db.turn(-90)
+    db.straight(-190)
+    db.turn(50)
+    db.settings(200)
+    db.straight(-300,wait=False)
+    wait(1400)
+    db.settings(450)
+    db.straight(-300)
+
     return
 
 def run3():
@@ -132,14 +177,15 @@ def run3():
     wait(150)
     tooriist_parem.stop()
     tooriist_parem.run_target(600,0)
-    db.straight(-45)
-    db.turn(30)
+    db.straight(-60)#-45
+    db.turn(29)#30
     wait(500)
-    tooriist_parem.run_angle(50,-60)
-    tooriist_parem.dc(60)
+    tooriist_parem.dc(-100)
+    #tooriist_parem.run_angle(50,-60)
+    #tooriist_parem.dc(60)
     wait(200)
-    tooriist_parem.stop()
-    wait(500)
+    #tooriist_parem.stop()
+    tooriist_parem.run_target(600,0)
     db.turn(170,absolute=True)
     db.straight(700)
     return
@@ -166,7 +212,6 @@ def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     wait(1000)
     tooriist_vasak.run_angle(50,-150)
     #move back
-    return
     db.straight(-90)
     db.turn(90)
     db.straight(280-7)
@@ -227,25 +272,6 @@ def test():
 
 def ttest():
     """for testing things v2"""
-    db.straight(-100)
-    db.turn(90,absolute=True)
-    tooriist_parem.run_target(600,0,wait=False)
-    db.straight(280)
-    db.turn(-4)
-    db.straight(130)
-    #loo puu tuge yles
-    tooriist_parem.dc(-100)
-    wait(150)
-    tooriist_parem.stop()
-    tooriist_parem.run_target(600,0)
-    db.straight(-60)
-    db.turn(29)
-    wait(500)
-    tooriist_parem.dc(-100)
-    wait(200)
-    tooriist_parem.run_target(600,0)
-    db.turn(170,absolute=True)
-    db.straight(700)
     return
 
 """Call functions here"""
@@ -253,8 +279,7 @@ def ttest():
 #test()
 #ttest()
 #run2()
-run3()
-
+run4alt()
 """
 Todo:
 Program bigtree and root(run 2)
