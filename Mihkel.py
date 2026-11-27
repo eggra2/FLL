@@ -230,15 +230,11 @@ def run1():
     """Droon ja banana tree. Start Punane X=4 Y=0
         Pullback tomba punansestjoonest hiina seinani x2"""
     db.settings(straight_speed=300)
-    db.straight(650)
+    tooriist_parem.hold()
+    db.straight(670)
     wait(200)
-    tooriist_parem.run_angle(300,100)
-    tooriist_parem.brake()
+    tooriist_parem.run_until_stalled(300,duty_limit=70)
     tooriist_parem.run_angle(300,-70)
-    db.settings(200)
-    db.straight(80)
-    db.settings(400)
-    tooriist_parem.run_angle(500,77)
     db.straight(-700,wait=False)
     wait(600)
     tooriist_parem.run_angle(450,120,wait=False)
@@ -251,9 +247,10 @@ def run1():
     tooriist_vasak.run_until_stalled(-400,duty_limit=20)
     tooriist_vasak.run_angle(300,70,wait=False)
     db.arc(400,distance=410)
-    tooriist_vasak.run_angle(200,80,wait=False)
+    tooriist_vasak.run_angle(200,70,wait=False)
     db.settings(straight_speed=120)
-    db.straight(-150)
+    db.straight(-150,wait=False)
+    wait(1000)
     db.settings(straight_speed=400)
     db.straight(-400)
     return
@@ -264,28 +261,11 @@ def test():
 
 def ttest():
     """for testing things v2"""
-    db.settings(straight_speed=300)
-    db.straight(670)
-    wait(200)
-    tooriist_parem.run_angle(150,30)#100
-    tooriist_parem.brake()
-    db.straight()#HERE
-    tooriist_parem.run_angle(150,60)
-    tooriist_parem.run_angle(300,-70)
-    db.settings(200)
-    db.straight(80)
-    db.settings(400)
-    tooriist_parem.run_angle(500,72)
-    tooriist_parem.run_angle(500,-70)
-    db.straight(-700,wait=False)
-    wait(600)
-    tooriist_parem.run_angle(450,120,wait=False)
-    db.straight(-500)
-    db.stop()
+    
     return
 
 """Call functions here"""
-ttest()
+run1()
 
 
 """
