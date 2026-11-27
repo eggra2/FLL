@@ -119,19 +119,20 @@ def run4(): #x=3, y=0, sinine
 def run3():
     """Leaves, pushes compost and vert leaves, and puu tugi, x=16 y=0"""
     tooriist_parem.reset_angle(0)
-    tooriist_vasak.run_angle(60,58,wait=False)
+    tooriist_vasak.reset_angle(0)
+    tooriist_vasak.run_angle(60,60,wait=False)
     tooriist_parem.run_angle(400,-150,wait=False)
     db.straight(770)
-    db.turn(-39)
+    db.turn(-40)
     #pickup leaves
     db.straight(80)
     tooriist_vasak.run_angle(300,170)
     tooriist_vasak.run_angle(200,-210,wait=False)
     #move to compost while dropping leaves
-    db.arc(700,-50)
+    db.arc(650,-50)
     #drive slowly into compost
     db.settings(straight_speed=175)
-    db.straight(-150)
+    db.straight(-180)
     tooriist_vasak.run_angle(700,210)
     db.settings(straight_speed=400)
     db.straight(100)
@@ -168,9 +169,7 @@ def run3():
     db.straight(-60)#-45
     db.turn(29)#30
     wait(500)
-    tooriist_parem.dc(-100)
     #tooriist_parem.run_angle(50,-60)
-    #tooriist_parem.dc(60)
     wait(200)
     #tooriist_parem.stop()
     tooriist_parem.run_target(600,0)
@@ -223,9 +222,6 @@ def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     db.straight(-200)
     return
 
-def altrun1():
-    db.straight(650)
-
 def run1():
     """Droon ja banana tree. Start Punane X=4 Y=0
         Pullback tomba punansestjoonest hiina seinani x2"""
@@ -241,7 +237,7 @@ def run1():
     db.straight(-500)
     db.stop()
 
-    # X=16 now bananatree   REDO THIS
+    # X=16 now bananatree
     waitforButtonPress()
     tooriist_parem.run_until_stalled(-700,duty_limit=40)
     tooriist_vasak.run_until_stalled(-400,duty_limit=20)
@@ -261,11 +257,11 @@ def test():
 
 def ttest():
     """for testing things v2"""
-    
     return
 
 """Call functions here"""
-run1()
+
+run3()
 
 
 """
