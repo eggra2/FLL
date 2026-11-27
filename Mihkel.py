@@ -8,6 +8,7 @@ hub = PrimeHub(
     top_side=Axis.Z,
     front_side=Axis.X)
 
+work = 'Ture'
 
 axle_lenght = 123.8#140#133.7
 wheel_diameter = 49.2
@@ -59,6 +60,16 @@ def waitforButtonPress():
     while not any(hub.buttons.pressed()):
         wait(10)
         pass
+    return
+
+def run6():
+    """x=8, spread and insert seeds"""
+    db.straight(220)
+    tooriist_vasak.run_angle(300,-200)
+    db.straight(50)
+    tooriist_parem.run_angle(100,-180)
+    tooriist_vasak.run_angle(300,60)
+    db.straight(-400)
     return
 
 def run5():
@@ -129,7 +140,7 @@ def run3():
     tooriist_vasak.run_angle(300,170)
     tooriist_vasak.run_angle(200,-210,wait=False)
     #move to compost while dropping leaves
-    db.arc(650,-50)
+    db.arc(630,-50)
     #drive slowly into compost
     db.settings(straight_speed=175)
     db.straight(-180)
@@ -154,7 +165,7 @@ def run3():
     tooriist_parem.dc(-100)
     wait(200)
     tooriist_parem.stop()
-    #mine puu togue juurde
+    #mine puu tuge juurde
     db.straight(-100)
     db.turn(90,absolute=True)
     tooriist_parem.run_target(600,0,wait=False)
@@ -169,7 +180,7 @@ def run3():
     db.straight(-60)#-45
     db.turn(29)#30
     wait(500)
-    #tooriist_parem.run_angle(50,-60)
+    tooriist_parem.run_angle(50,-50)
     wait(200)
     #tooriist_parem.stop()
     tooriist_parem.run_target(600,0)
@@ -180,12 +191,13 @@ def run3():
 def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     """Root, BigTree ja Antleaf. Punane X=7 Y=0"""
     db.settings(
-        straight_speed=400,#max 432, saab panna 450
+        straight_speed=350,#max 432, saab panna 450
         straight_acceleration=900,#max 5000
         turn_rate=300,#max 370, saab panna 400
-        turn_acceleration=400)#max 5000
+        turn_acceleration=300)#max 5000
     tooriist_parem.reset_angle(0)
-    tooriist_vasak.run_angle(400,-130)
+    tooriist_vasak.reset_angle(0)
+    tooriist_vasak.run_angle(400,-170)
     db.straight(100)
     db.turn(45)
     db.straight(80)
@@ -196,30 +208,65 @@ def run2():#Starting pos on all vasakult 4 ruut(parem külg)
     wait(200)
     tooriist_parem.brake()
     resetParem()
-    db.brake()
+    db.straight(20)
     #reveal leaves
-    tooriist_vasak.run_angle(50,140)
-    wait(1000)
-    tooriist_vasak.run_angle(50,-140)
+    tooriist_vasak.run_angle(50,178)
+    wait(700)
+    tooriist_vasak.run_angle(60,-70)
+    tooriist_vasak.run_angle(300,-120)
     #move back
-    db.straight(-90)
-    db.turn(90)
-    db.straight(272)
+    db.straight(-90-30)
+    db.turn(-90)
+    db.straight(-270+3)
     #line up to tree
     db.turn(0,absolute=True)
     tooriist_parem.run_until_stalled(-600,duty_limit=16)
     tooriist_parem.run_angle(300,50)
     db.settings(straight_speed=150)
     db.straight(145)
-    db.turn(7)
-    tooriist_parem.run_angle(300,50)
-    db.turn(-7)
+    tooriist_parem.run_angle(300,45)
     #ram tree
-    db.settings(straight_speed=300)
-    db.straight(220-70)
-    db.straight(70)
+    db.settings(straight_speed=450)
+    db.straight(250)
+    db.settings(200)
     wait(400)
-    db.straight(-200)
+    for _ in range(2):
+        db.straight(-50)
+        db.straight(140)
+    db.settings(400)
+    db.arc(-400,distance=-150)
+    db.straight(-900,wait=False)
+    wait(2200)
+    db.stop()
+    return
+
+def altrun2():
+    db.settings(straight_acceleration=200,turn_acceleration=100)
+    db.straight(660)
+    db.turn(-90)
+    db.straight(-320)
+    db.turn(0,absolute=True)
+    db.settings(450)
+    db.straight(260)
+    db.use_gyro(False)
+    db.settings(turn_acceleration=1000,straight_acceleration=1300)
+    for _ in range(2):
+        db.turn(40)
+        db.turn(-40)
+    for i in range(3):
+        db.straight(150)
+        if i == 2: db.settings(100)
+        db.straight(-100)
+    db.settings(400)
+    db.use_gyro(True)
+    db.settings(turn_acceleration=600)
+    wait(500)
+    db.straight(-150)
+    db.turn(0,absolute=True)
+    db.turn(10)
+    tooriist_parem.run_until_stalled(-600,duty_limit=16)
+    tooriist_parem.run_angle(300,50)
+    db.turn(0,absolute=True)
     return
 
 def run1():
@@ -257,12 +304,16 @@ def test():
 
 def ttest():
     """for testing things v2"""
+    db.turn(0,absolute=True)
+    db.stop()
+    waitforButtonPress()
+    db.turn(0,absolute=True)
+    db.stop()
     return
 
 """Call functions here"""
 
-run3()
-
+altrun2()
 
 """
 Todo:
